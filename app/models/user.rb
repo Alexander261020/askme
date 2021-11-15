@@ -11,9 +11,9 @@ class User < ApplicationRecord
   validates_format_of :username, :with => /\A^\w{1,40}$\z/
   validates_format_of :email, :with => /\A^[a-z0-9]{1,15}@[a-z0-9]{3,8}\.[a-z]{1,8}$\z/
 
-  attr_accessor :password
+  attr_accessor :password, :username
 
-   # валидация будет проходить только при создании нового юзера
+  # валидация будет проходить только при создании нового юзера
   # validates :password, presence: true, on: :create
   validates_presence_of :password, on: create
   
@@ -21,7 +21,11 @@ class User < ApplicationRecord
   validates_confirmation_of :password
 
   before_save :encrypt_password
+  before_save :username_down_case
 
+  def username_down_case
+    @username = @username.downcase
+  end
 
   def encrypt_password
     if password.present?
