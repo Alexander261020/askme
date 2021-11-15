@@ -24,7 +24,7 @@ class User < ApplicationRecord
   before_save :username_down_case
 
   def username_down_case
-    @username = @username.downcase
+    @username.downcase!
   end
 
   def encrypt_password
