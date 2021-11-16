@@ -1,59 +1,23 @@
-require 'openssl'
-
 class User < ApplicationRecord
+  require 'openssl'
+
   ITERATIONS = 20_000
   DIGEST = OpenSSL::Digest::SHA256.new
 
+  attr_accessor :password
+  
+  validates :email, :username, presence: true, uniqueness: true
+  validates :username, format: { with: /\A^\w{1,40}$\z/ }
+  validates :email, format: { with: /\A^\w{1,15}@[a-z0-9]{3,8}\.[a-z]{1,8}$\z/ }
+  # валидация будет проходить только при создании нового юзера
+  validates :password, presence: true, on: :create
+  # и поле подтверждения пароля
+  validates :password, confirmation: true
+
   has_many :questions
 
-  validates :email, :username, presence: true
-  validates :email, :username, uniqueness: true
-  validates_format_of :username, :with => /\A^\w{1,40}$\z/
-  validates_format_of :email, :with => /\A^[a-z0-9]{1,15}@[a-z0-9]{3,8}\.[a-z]{1,8}$\z/
-
-  attr_accessor :password, :username
-
-  # валидация будет проходить только при создании нового юзера
-  # validates :password, presence: true, on: :create
-  validates_presence_of :password, on: create
-  
-   # и поле подтверждения пароля
-  validates_confirmation_of :password
-
+  before_validation :username_downcase
   before_save :encrypt_password
-  before_save :username_down_case
-
-  def username_down_case
-    @username.downcase!
-  end
-
-  def encrypt_password
-    if password.present?
-      # Создаем т.н. «соль» — случайная строка, усложняющая задачу хакерам по
-      # взлому пароля, даже если у них окажется наша БД.
-      #У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
-      # одного юзера, нельзя разгадать, по какому принципу
-      # зашифрованы пароли остальных пользователей
-      self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
-
-      # Создаем хэш пароля — длинная уникальная строка, из которой невозможно
-      # восстановить исходный пароль. Однако, если правильный пароль у нас есть,
-      # мы легко можем получить такую же строку и сравнить её с той, что в базе.
-      self.password_hash = User.hash_to_string(
-        OpenSSL::PKCS5.pbkdf2_hmac(
-          password, password_salt, ITERATIONS, DIGEST.length, DIGEST
-        )
-      )
-
-      # Оба поля попадут в базу при сохранении (save).
-    end
-  end
-
-  # Служебный метод, преобразующий бинарную строку в шестнадцатиричный формат,
-  # для удобства хранения.
-  def self.hash_to_string(password_hash)
-    password_hash.unpack('H*')[0]
-  end
 
   # Основной метод для аутентификации юзера (логина). Проверяет email и пароль,
   # если пользователь с такой комбинацией есть в базе, возвращает этого
@@ -63,7 +27,7 @@ class User < ApplicationRecord
     user = find_by(email: email)
 
     # Если пользователь не найден, возвращает nil
-    return nil unless user.present?
+    return unless user.present?
 
     # Формируем хэш пароля из того, что передали в метод
     hashed_password = User.hash_to_string(
@@ -76,8 +40,36 @@ class User < ApplicationRecord
     # никогда и не сохраняется нигде. Если пароли совпали, возвращаем
     # пользователя.
     return user if user.password_hash == hashed_password
-
-    # Иначе, возвращаем nil
-    nil
   end
+
+  def username_downcase
+    username.downcase!
+  end
+
+  private
+    def encrypt_password
+      if password.present?
+        # Создаем т.н. «соль» — случайная строка, усложняющая задачу хакерам по
+        # взлому пароля, даже если у них окажется наша БД.
+        #У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
+        # одного юзера, нельзя разгадать, по какому принципу
+        # зашифрованы пароли остальных пользователей
+        self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
+
+        # Создаем хэш пароля — длинная уникальная строка, из которой невозможно
+        # восстановить исходный пароль. Однако, если правильный пароль у нас есть,
+        # мы легко можем получить такую же строку и сравнить её с той, что в базе.
+        self.password_hash = User.hash_to_string(
+          OpenSSL::PKCS5.pbkdf2_hmac(
+            password, password_salt, ITERATIONS, DIGEST.length, DIGEST
+          )
+        )
+      end
+    end
+
+    # Служебный метод, преобразующий бинарную строку в шестнадцатиричный формат,
+    # для удобства хранения.
+    def self.hash_to_string(password_hash)
+      password_hash.unpack('H*')[0]
+    end
 end
