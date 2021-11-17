@@ -5,7 +5,7 @@ class User < ApplicationRecord
   DIGEST = OpenSSL::Digest::SHA256.new
 
   attr_accessor :password
-  
+
   validates :email, :username, presence: true, uniqueness: true
   validates :username, format: { with: /\w+/ }
   validates :username, length: { maximum: 40 }
