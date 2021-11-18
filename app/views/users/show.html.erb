@@ -45,7 +45,7 @@
     <div class="question">
       <div class="question-content">
         <div class="question-text text-lead">
-        У <%= @user.name %>а есть <%= amount_questions(@questions.count)%>
+        У <%= @user.name %>а есть <%= get_declination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
         </div>
       </div>
     </div>

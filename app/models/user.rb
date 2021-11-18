@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :email, :username, presence: true, uniqueness: true
   validates :username, format: { with: /\w+/ }
   validates :username, length: { maximum: 40 }
-  validates :email, format: { with: /\w+@\w+\.\w+/ }
+  validates :email, format: { with: /\w+@[a-z]+\.[a-z]+/ }
   # валидация будет проходить только при создании нового юзера
   validates :password, presence: true, on: :create
   # и поле подтверждения пароля
