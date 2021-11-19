@@ -10,9 +10,9 @@ module ApplicationHelper
   end
 
   def get_declination(amount, form_word1, form_word2, form_word3)
-    result = amount % 10 unless (11..19).include?(amount % 100)
+    result = amount % 10 unless (11..14).include?(amount % 100)
 
-    def_form_word = 
+    def_form_word =
       case result
       when 1 then form_word1
       when 2..4 then form_word2

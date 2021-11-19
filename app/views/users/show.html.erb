@@ -45,9 +45,7 @@
     <div class="question">
       <div class="question-content">
         <div class="question-text text-lead">
-          У <%= @user.name %>а есть <%= get_declination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>,
-          <%= get_declination(@questions.map(&:answer).compact.count, 'ответ', 'ответа', 'ответов') %>,
-          и <%= get_declination(@questions.map(&:answer).count(nil), 'вопрос', 'вопроса', 'вопросов') %> без ответа.
+          <%= @up_text %>
         </div>
       </div>
     </div>
