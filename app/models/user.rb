@@ -24,7 +24,7 @@ class User < ApplicationRecord
   # если пользователь с такой комбинацией есть в базе, возвращает этого
   # пользователя. Если нет — возвращает nil.
   def self.authenticate(email, password)
-    email.downcase!
+    email&.downcase!
     # Сперва находим кандидата по email
     user = find_by(email: email)
 
