@@ -15,10 +15,10 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def show
+  def show 
   end
 
-  private
+  # private
 
   def user_params
     # берём объект params, потребуем у него иметь ключ
