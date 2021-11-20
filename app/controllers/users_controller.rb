@@ -16,18 +16,7 @@ class UsersController < ApplicationController
   end
 
   def show
-<<<<<<< HEAD
-  end
 
-  private
-
-  def user_params
-    # берём объект params, потребуем у него иметь ключ
-    # :user, у него с помощью метода permit разрешаем
-    # набор инпутов. Ничего лишнего, кроме них, в пользователя не попадёт
-    params.require(:user).permit(:email, :password, :password_confirmation,
-                                 :name, :username, :avatar_url)
-=======
     @user = User.new(
       name: 'Vadim',
       username: 'installero',
@@ -42,6 +31,22 @@ class UsersController < ApplicationController
       Question.new(text: 'It is number 6', created_at: Date.parse('27.03.2016'))
     ]
     @new_question = Question.new
->>>>>>> parent of 84e5855... transfer code from view in controller
+
+    @up_block = "У #{@user.name} а есть #{helpers.get_declination(@questions.count, 'вопрос', 'вопроса', 'вопросов')},"
+=begin     <%= get_declination(@questions.map(&:answer).compact.count, 'ответ', 'ответа', 'ответов') %>,
+    и <%= get_declination(@questions.map(&:answer).count(nil), 'вопрос', 'вопроса', 'вопросов') %> без ответа." 
+=end
+
+  end
+
+  private
+
+  def user_params
+    # берём объект params, потребуем у него иметь ключ
+    # :user, у него с помощью метода permit разрешаем
+    # набор инпутов. Ничего лишнего, кроме них, в пользователя не попадёт
+=begin     params.require(:user).permit(:email, :password, :password_confirmation,
+                                 :name, :username, :avatar_url) 
+=end
   end
 end
