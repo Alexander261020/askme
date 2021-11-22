@@ -9,14 +9,18 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.save
+    
+    if @user.save
+      # Если удачно, отправляем пользователя на главную с помощью метода redirect_to
+      # с сообщением
+      redirect_to root_url, notice: 'Пользователь успешно зарегистрирован!'
+    end
   end
 
   def edit
   end
 
   def show
-
     @user = User.new(
       name: 'Vadim',
       username: 'installero',
