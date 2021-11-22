@@ -45,7 +45,9 @@
     <div class="question">
       <div class="question-content">
         <div class="question-text text-lead">
-          <%= @up_block %>
+          У <%= @user.name %>а есть <%= get_declination(@amount_questions, 'вопрос', 'вопроса', 'вопросов') %>,
+          <%= get_declination(@amount_answers, 'ответ', 'ответа', 'ответов') %>,
+          и <%= get_declination(@questions_without_answer, 'вопрос', 'вопроса', 'вопросов') %> без ответа.
         </div>
       </div>
     </div>
