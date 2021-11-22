@@ -9,6 +9,10 @@ module ApplicationHelper
     end
   end
 
+  def fa_icon(icon_class)
+    content_tag 'span', '', class: "fa fa-#{icon_class}"
+  end
+ 
   def get_declination(amount, form_word1, form_word2, form_word3)
     result = amount % 10 unless (11..19).include?(amount % 100)
 
