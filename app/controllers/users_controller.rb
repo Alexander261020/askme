@@ -46,9 +46,9 @@ class UsersController < ApplicationController
     # Для формы нового вопроса создаём заготовку, вызывая build у результата вызова метода @user.questions.
     @new_question = @user.questions.build
 
-    @amount_questions = @user.questions.all.count
-    @amount_answers = @user.questions.where.not(:answer => nil).count
-    @questions_without_answer = @user.questions.where(:answer => nil).count
+    @amount_questions = @user.questions.count
+    @amount_answers = @user.questions.where.not(answer: :nil).count
+    @questions_without_answer = @amount_questions - @amount_answers
   end
 
   private
