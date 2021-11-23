@@ -7,20 +7,11 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
-# Use Active Storage variant
 gem 'image_processing', '~> 1.2'
-# gem 'jquery-rails'
-# Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-
 gem 'uglifier'
 gem 'pg', '~> 1.2.3'
-
-=begin 
-group :production do
-  gem 'pg', '~> 0.21'
-end 
-=end
+gem 'rails_12factor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
