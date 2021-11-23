@@ -14,11 +14,11 @@ gem 'image_processing', '~> 1.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'uglifier'
-gem 'pg'
+gem 'pg', '~> 1.2.3'
 
-=begin
+=begin 
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.21'
 end 
 =end
 

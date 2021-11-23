@@ -95,7 +95,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
-    pg (0.21.0)
+    pg (1.2.3)
     puma (5.5.2)
       nio4r (~> 2.0)
     racc (1.6.0)
@@ -174,7 +174,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     thor (1.1.0)
     tilt (2.0.10)
     tzinfo (2.0.4)
@@ -204,14 +203,13 @@ DEPENDENCIES
   byebug
   image_processing (~> 1.2)
   listen (~> 3.3)
-  pg
+  pg (~> 1.2.3)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.1)
   rspec-rails
   sass-rails (>= 6)
   spring
-  sqlite3 (~> 1.4)
   tzinfo-data
   uglifier
   web-console (>= 4.1.0)
