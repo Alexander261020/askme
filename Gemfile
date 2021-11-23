@@ -15,10 +15,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'uglifier'
 
-# gem 'pg', '~> 0.21'
-
 group :production do
-  gem 'pg'
+  gem 'pg', '~> 0.21'
 end
 
 group :development, :test do
