@@ -12,17 +12,21 @@
   </head>
 
   <body>
+
+  <% if flash.any? %>
+    <div class="header">
+      <div class="container">
+          <div class="text-color-red">
+            <% flash.each do |name, message| %>
+              <%= content_tag :div, message, class: "flash-#{name}" %>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="header">
     <div class="container">
-
-    <% if flash.any? %>
-      <div class="content-wrapper buffer-both" style="color: red;">
-        <% flash.each do |name, message| %>
-          <%= content_tag :div, message, class: "flash-#{name}" %>
-        <% end %>
-      </div>
-    <% end %>
-
       <div class="header-logo">
         <h1 class="header-title"><%= link_to "Good questions", root_path %></h1>
       </div>

@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
-
   before_action :load_user, except: [:index, :new, :create]
-
   before_action :authorize_user, except: [:index, :new, :create, :show]
 
   def index
@@ -28,7 +26,6 @@ class UsersController < ApplicationController
   end
 
   def update
-
     if @user.update(user_params)
       # Если удачно, отправляем пользователя на главную с помощью метода redirect_to
       # с сообщением
@@ -66,7 +63,6 @@ class UsersController < ApplicationController
     # берём объект params, потребуем у него иметь ключ
     # :user, у него с помощью метода permit разрешаем
     # набор инпутов. Ничего лишнего, кроме них, в пользователя не попадёт
-    params.require(:user).permit(:email, :password, :password_confirmation,
-                                    :name, :username, :avatar_url)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :username, :avatar_url)
   end
 end
