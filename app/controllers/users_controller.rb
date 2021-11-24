@@ -38,6 +38,15 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def destroy
+    # method authorize_user used default
+    # deleted all questions to user
+    @user.questions.each { |question| question.destroy }
+
+    @user.destroy
+    redirect_to root_url, notice: 'User is deleted'
+  end
+
   def show
     # берём вопросы у найденного юзера
     @questions = @user.questions.order(created_at: :desc)

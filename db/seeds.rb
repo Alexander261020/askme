@@ -10,4 +10,4 @@
 # Question.create(text: 'It is number 3', created_at: Date.parse('27.03.2016'), answer: 'Answer 3', user_id: 2)
 # Question.create(text: 'It is number 4', created_at: Date.parse('27.03.2016'), answer: 'Answer 4', user_id: 1)
 # Question.create(text: 'It is number 5', created_at: Date.parse('27.03.2016'), answer: 'Answer 5', user_id: 2)
-Question.create(text: 'It is number 6', created_at: Date.parse('27.03.2016'), user_id: 2)
+# Question.create(text: 'It is number 6', created_at: Date.parse('27.03.2016'), user_id: 2)

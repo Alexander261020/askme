@@ -50,9 +50,19 @@
         <%= f.password_field :password_confirmation, class: 'form-text-field' %>
       </div>
 
-      <div class="form-action">
-        <%= f.submit 'Обновить данные', class: 'button button-small button-dark' %>
+      <div class="column-1-2">
+        <div class="form-action">
+          <%= f.submit 'Обновить данные', class: 'button button-small button-dark' %>
+        </div>
+      </div>
+
+      <div class="column-1-2">
+        <div class="form-action">
+          <%= link_to "Удалить", @user, method: :delete, data: { confirm: "Удалить пользователя?" },
+            class: 'button button-small button-dark'%>
+        </div>
       </div>
     <% end %>
+
   </div>
 </div>
