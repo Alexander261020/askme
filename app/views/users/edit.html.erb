@@ -28,6 +28,14 @@
         <%= f.text_field :name, class: 'form-text-field' %>
       </div>
 
+      <div class="form-field">
+        <%= f.label :color, 'Цвет', class: 'form-label' %>
+        <%= f.radio_button :color, 'black' %><div class="form-checkbox form-checkbox-black"></div>
+        <%= f.radio_button :color, 'blue' %><div class="form-checkbox form-checkbox-blue"></div>
+        <%= f.radio_button :color, 'red' %><div class="form-checkbox form-checkbox-red"></div>
+        <%= f.radio_button :color, 'purple' %><div class="form-checkbox form-checkbox-purple"></div>
+      </div>
+      
       <div class="buffer-top-large buffer-bottom">
         Если не хотите менять пароль — оставьте эти поля пустыми!
       </div>

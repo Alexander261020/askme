@@ -34,3 +34,27 @@
   list-style: none;
   margin-bottom: 10px;
 }
+
+.form-checkbox {
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.form-checkbox-red {
+  background: red;
+}
+
+.form-checkbox-blue {
+  background: blue;
+}
+
+.form-checkbox-black {
+  background: black;
+}
+
+.form-checkbox-purple {
+  background: purple;
+}
