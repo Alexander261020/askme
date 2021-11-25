@@ -7,7 +7,8 @@ class QuestionsController < ApplicationController
 
   def create
     if current_user == nil
-      redirect_to user_path_new, notice: 'Для того что бы задать вопрос нужно зарегистрироваться или залогиниться!'
+      redirect_to new_user_path, notice: 'Для того что бы задать вопрос нужно
+        зарегистрироваться или залогиниться!' and return
     end
 
     @question = Question.new(question_params)
