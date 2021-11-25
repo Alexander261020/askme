@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to user_path(@question.user), notice: 'Question was saved.'
+      redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
       render :edit
     end
