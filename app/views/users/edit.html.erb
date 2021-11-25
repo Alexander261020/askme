@@ -30,6 +30,7 @@
 
       <div class="form-field">
         <%= f.label :color, 'Цвет', class: 'form-label' %>
+        <%= f.radio_button :color, '#005a55', checked: true%><div class="form-checkbox form-checkbox-default"></div>
         <%= f.radio_button :color, 'black' %><div class="form-checkbox form-checkbox-black"></div>
         <%= f.radio_button :color, 'blue' %><div class="form-checkbox form-checkbox-blue"></div>
         <%= f.radio_button :color, 'red' %><div class="form-checkbox form-checkbox-red"></div>
