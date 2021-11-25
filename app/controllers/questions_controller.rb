@@ -7,7 +7,12 @@ class QuestionsController < ApplicationController
 
   # POST /questions
   def create
+    if current_user == nil
+      redirect_to user_path_new, notice: 'Для того что бы задать вопрос нужно зарегистрироваться или залогиниться!'
+    end
+
     @question = Question.new(question_params)
+    @question.author = current_user
 
     if @question.save
       # После сохранения вопроса редиректим на пользователя
@@ -17,7 +22,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /questions/1
   def update
     if @question.update(question_params)
       redirect_to user_path(@question.user), notice: 'Question was saved.'
@@ -42,10 +46,8 @@ class QuestionsController < ApplicationController
     reject_user unless @question.user == current_user
   end
 
-  # Only allow a list of trusted parameters through.
   def question_params
-    if current_user.present? &&
-      params[:question][:user_id].to_i == current_user.id
+    if current_user.present? && params[:question][:user_id].to_i == current_user.id
       params.require(:question).permit(:user_id, :text, :answer)
     else
       params.require(:question).permit(:user_id, :text)
