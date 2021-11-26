@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # и поле подтверждения пароля
   validates :password, confirmation: true
 
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
   before_validation :username_downcase, :email_downcase
   before_save :encrypt_password

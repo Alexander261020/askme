@@ -41,8 +41,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.questions.destroy_all
-
     @user.destroy
     redirect_to root_path, notice: 'User is deleted'
   end
@@ -73,6 +71,6 @@ class UsersController < ApplicationController
     # :user, у него с помощью метода permit разрешаем
     # набор инпутов. Ничего лишнего, кроме них, в пользователя не попадёт
     params.require(:user).permit(:email, :password, :password_confirmation,
-                                  :name, :username, :avatar_url, :color)
+                                :name, :username, :avatar_url, :color)
   end
 end

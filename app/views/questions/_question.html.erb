@@ -18,7 +18,12 @@
     </div>
 
     <div class="question-date">
-      Вопрос от: <%= link_to "@#{question.author.username}", user_path(question.author) %>
+      Вопрос от:
+      <% if question.author.present? %>
+        <%= link_to "@#{question.author.username}", user_path(question.author) %>
+      <% else %>
+        Анонимный автор
+      <% end %>
     </div>
   </div>
 
