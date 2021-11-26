@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :load_user, except: [:index, :new, :create]
   before_action :authorize_user, except: [:index, :new, :create, :show]
 
+  COLOR_ARRAY = ['#005a55', 'black', 'blue', 'red', 'purple']
+
   def index
     @users = User.all
   end
@@ -39,7 +41,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    # deleted all questions to user
     @user.questions.destroy_all
 
     @user.destroy
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # берём вопросы у найденного юзера
+    @color = COLOR_ARRAY[@user.color] unless @user.color.nil?
     @questions = @user.questions.order(created_at: :desc)
     # Для формы нового вопроса создаём заготовку, вызывая build у результата вызова метода @user.questions.
     @new_question = @user.questions.build
