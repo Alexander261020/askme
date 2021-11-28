@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
+    ActiveRecord::Base.transaction { @user&.destroy }
     redirect_to root_path, notice: 'User is deleted'
   end
 

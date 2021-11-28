@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :username, format: { with: /\A\w+\z/ }
   validates :username, length: { maximum: 40 }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :color, format: { with: /\A[#a-z0-9]+\z/ }
+  validates :color, format: { with: /\A[#a-z0-9]*\z/ }
   # валидация будет проходить только при создании нового юзера
   validates :password, presence: true, on: :create
   # и поле подтверждения пароля
