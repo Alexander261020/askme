@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  require 'openssl'
-
   ITERATIONS = 20_000
   DIGEST = OpenSSL::Digest::SHA256.new
 
