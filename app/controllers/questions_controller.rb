@@ -6,13 +6,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    if current_user == nil
-      redirect_to new_user_path, notice: 'Для того что бы задать вопрос нужно
-        зарегистрироваться или залогиниться!' and return
-    end
-
     @question = Question.new(question_params)
-    @question.author = current_user
+    @question.author = current_user if current_user
 
     if @question.save
       # После сохранения вопроса редиректим на пользователя

@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2021_11_24_101939) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.integer "author_id"
-    t.index ["author_id"], name: "index_questions_on_author_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
