@@ -25,6 +25,15 @@
         Анонимный автор
       <% end %>
     </div>
+
+    <% if question.tags.present? %>
+      <div class="question-date">
+        хештеги вопроса:
+        <% question.tags.uniq.each do |tag| %>
+          <%= link_to tag, tag_path(tag) %> |
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <% if question.user == current_user %>

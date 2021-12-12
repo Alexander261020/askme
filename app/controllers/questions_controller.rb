@@ -5,9 +5,17 @@ class QuestionsController < ApplicationController
   def edit
   end
 
+  def tag
+    @tag = params['format']
+    @questions = Question.all.map do | question |
+      question if question.tags.include?(@tag)
+    end.compact
+  end
+
   def create
     @question = Question.new(question_params)
     @question.author = current_user
+    @question['tags'] = question_params[:text].downcase.scan(/#[а-яa-z\w\-]+/i)
 
     if @question.save
       # После сохранения вопроса редиректим на пользователя
@@ -38,7 +46,7 @@ class QuestionsController < ApplicationController
   end
 
   def authorize_user
-    reject_user unless @question.user == current_user
+    reject_user unless @question&.user == current_user
   end
 
   def question_params

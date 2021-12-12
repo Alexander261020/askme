@@ -4,6 +4,10 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    # @tags = Question.all.tags
+    
+    @tags = Question.all.map { |question| question.tags }.flatten.uniq
+    # .tags.each do |tag| compact
   end
 
   def new
