@@ -13,9 +13,10 @@
     <% end %>
   </div>
 
-  <div class="text-left border border-dark" >
-    <% @tags.each do |teg| %>
-      <%= link_to teg, root_path %> <br>
+  <div class="text-left border-top border-dark" >
+  Хаштеги: 
+    <% @tags.each do |tag| %>
+      <%= link_to tag, tag_path(tag) %> |
     <% end %>
   </div>
 </div>

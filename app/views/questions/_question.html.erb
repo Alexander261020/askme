@@ -28,15 +28,15 @@
 
     <% if question.tags.present? %>
       <div class="question-date">
-        хештеги вопроса:
-        <% question.tags.uniq.each do |tag| %>
+        хештеги вопроса/ответа:
+        <% question.tags.each do |tag| %>
           <%= link_to tag, tag_path(tag) %> |
         <% end %>
       </div>
     <% end %>
   </div>
 
-  <% if question.user == current_user %>
+  <% if question.user == current_user && @tag.nil? %>
     <div class="question-actions">
       <%= link_to fa_icon(action_icon), edit_question_path(question) %>
       <%= link_to fa_icon('trash-o'), question_path(question),
