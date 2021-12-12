@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_133414) do
     t.bigint "user_id", null: false
     t.integer "author_id"
     t.string "tags", default: [], array: true
+    t.index ["author_id"], name: "index_questions_on_author_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
