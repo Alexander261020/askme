@@ -26,14 +26,14 @@
       <% end %>
     </div>
 
-    <% if question.tags.present? %>
+    <!--% if question.tags.present? %>
       <div class="question-date">
         хештеги вопроса/ответа:
-        <% question.tags.each do |tag| %>
-          <%= link_to tag, tag_path(tag) %> |
-        <% end %>
+        < % question.tags.each do |tag| %>
+          < %= link_to tag, tag_path(tag) %> |
+        < % end %>
       </div>
-    <% end %>
+    < % end %-->
   </div>
 
   <% if question.user == current_user && @tag.nil? %>

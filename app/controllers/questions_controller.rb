@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.author = current_user
     # получаем теги при создании вопроса и записываем их
-    @question[:tags] = hashtags_question(question_params)
+    # @question[:tags] = hashtags_question(question_params)
 
     if @question.save
       # После сохранения вопроса редиректим на пользователя
@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
 
   def update
     # получаем теги при ответе на вопрос
-    @question[:tags] = hashtags_question(question_params)
+    # @question[:tags] = hashtags_question(question_params)
 
     if @question.update(question_params)
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
@@ -46,6 +46,7 @@ class QuestionsController < ApplicationController
   private
 
   # метод нужен для получения и удаления хештегов при создании/редактировании вопросов и ответов
+=begin   
   def hashtags_question(question_params)
     heshtags = []
     heshtags += search_tags(question_params[:text]) if question_params[:text]
@@ -55,7 +56,8 @@ class QuestionsController < ApplicationController
 
   def search_tags(string)
     string.downcase.scan(/#[а-яa-z\w\-]+/i)
-  end
+  end 
+=end
 
   def load_question
     @question = Question.find(params[:id])
