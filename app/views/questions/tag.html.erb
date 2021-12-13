@@ -8,4 +8,17 @@
       </div>
     <% end %>
   </div>
+
+
+
+    <% @ARusers.each do |q| %>
+      <div class="border-top border-dark">
+      <%= q.id %>
+        <% q.questions.each do |q| %>
+          <%= q.id %>
+          <%= q.text %>|
+        <% end %>
+      </div>
+    <% end %>
+    <%=@ARusers %>
 </div>
