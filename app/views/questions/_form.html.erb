@@ -29,7 +29,5 @@
       или
       <%= link_to "вернуться", user_path(@question.user) %>
     </div>
-    <%# Хелпер капчи %>
-    <%= recaptcha_tags unless current_user.present? %>
   <% end %>
 </div>
