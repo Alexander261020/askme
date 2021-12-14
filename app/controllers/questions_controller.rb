@@ -18,10 +18,10 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    # получаем теги при ответе на вопрос
-    # @question[:tags] = hashtags_question(question_params)
-
     if @question.update(question_params)
+      tags = hashtags_question(question_params)
+      set_tags(tags)
+
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
       render :edit
@@ -36,17 +36,10 @@ class QuestionsController < ApplicationController
 
   private
 
-  def set_tags(tags)
-    tags.each do |tag|
-      unless Tag.exists?(hashtag: tag)
-        @tag = Tag.create(hashtag: tag)
-      else
-        @tag = Tag.where(hashtag: tag)
-      end
-
-      unless QuestionTag.exists?(question: @question, tag: @tag)
-        QuestionTag.create(question: @question, tag: @tag)
-      end
+  def set_tags(hashtags)
+    hashtags.each do |hashtag|
+      tag = Tag.find_or_create_by(hashtag: hashtag)
+      QuestionTag.find_or_create_by(question: @question, tag: tag)
     end
   end
 
