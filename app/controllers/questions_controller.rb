@@ -7,19 +7,9 @@ class QuestionsController < ApplicationController
     @question.author = current_user
     # получаем теги при создании вопроса и записываем их
 
-    tegs = hashtags_question(question_params)
-    set_tags(tegs)
-
-    @question.tags.sssss
-=begin 
-    @tags = Tag.create(published_at: Time.now, author_id: @author.id)
-    @question.sssss 
-=end
-
     if @question.save
       tegs = hashtags_question(question_params)
       set_tags(tegs)
-      @question.tags.sssss
 
       # После сохранения вопроса редиректим на пользователя
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
@@ -52,7 +42,7 @@ class QuestionsController < ApplicationController
       unless Tag.exists?(hashtag: tag)
         @teg_new = Tag.new(hashtag: tag)
         if @teg_new.save
-          QuestionsTags.create(question: @question, tag: @teg_new)
+          QuestionsTag.create(question: @question, tag: @teg_new)
         end
       end
     end

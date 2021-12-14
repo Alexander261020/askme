@@ -13,10 +13,10 @@
     <% end %>
   </div>
 
-  <!--div class="text-left border-top border-dark" >
-  Хаштеги: 
-    < % @tags.each do |tag| %>
-      < %= link_to tag, tag_path(tag) %> |
-    < % end %>
-  </div-->
+  <div class="text-left border-top border-dark" >
+  Все теги мира <%= @tags.all.count %>:
+  <% @tags.each do |tag| %>
+
+    <%= link_to tag[:hashtag], tag_path(tag) %> |
+  <% end %>
 </div>
