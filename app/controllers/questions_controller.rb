@@ -1,22 +1,15 @@
 class QuestionsController < ApplicationController
   before_action :load_question, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user, except: [:create]
-
-  def edit
-  end
+  before_action :authorize_user, except: [:create, :tag]
 
   def create
-=begin
-    unless current_user
-      redirect_to new_user_path, notice: 'Для того что бы задать вопрос нужно зарегистрироваться или залогиниться!'
-      return
-    end
-=end
-
     @question = Question.new(question_params)
     @question.author = current_user
 
     if @question.save
+      tags = hashtags_question(question_params)
+      set_tags(tags)
+
       # После сохранения вопроса редиректим на пользователя
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
@@ -26,6 +19,9 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
+      tags = hashtags_question(question_params)
+      set_tags(tags)
+
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
       render :edit
@@ -39,6 +35,26 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def set_tags(hashtags)
+    hashtags.each do |hashtag|
+      tag = Tag.find_or_create_by(hashtag: hashtag)
+      QuestionTag.find_or_create_by(question: @question, tag: tag)
+    end
+  end
+
+  # метод нужен для получения и удаления хештегов при создании/редактировании вопросов и ответов
+  def hashtags_question(question_params)
+    heshtags = []
+    heshtags += search_tags(question_params[:text]) if question_params[:text]
+    heshtags += search_tags(question_params[:answer]) if question_params[:answer]
+    heshtags.uniq
+  end
+
+  def search_tags(string)
+    string.downcase.scan(/#[а-яa-z\w\-]+/i)
+  end 
+
 
   def load_question
     @question = Question.find(params[:id])

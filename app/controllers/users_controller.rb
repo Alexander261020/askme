@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @tags = Tag.all
   end
 
   def new
@@ -40,6 +41,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
+    session[:user_id] = nil
     redirect_to root_path, notice: 'User is deleted'
   end
 

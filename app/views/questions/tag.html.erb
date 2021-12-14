@@ -1,0 +1,11 @@
+<div class="container content-wrapper buffer-both">
+  <h1 class="title-medium">Вопросы с хештегом: <%=@tag %></h1>
+
+  <div class="column">
+    <% @questions.each do |question| %>
+      <div class="border-top border-dark">
+        <%= render partial: 'questions/question', object: question %>
+      </div>
+    <% end %>
+  </div>
+</div>

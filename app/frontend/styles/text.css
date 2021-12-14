@@ -44,6 +44,10 @@ a {
   text-align: center;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .text-color-black {
   color: black;
 }

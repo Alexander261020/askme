@@ -10,10 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_101939) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 2021_12_14_100057) do
+=======
+ActiveRecord::Schema.define(version: 2021_12_14_103537) do
+>>>>>>> branch_job
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+<<<<<<< HEAD
+  create_table "question_tag", force: :cascade do |t|
+    t.string "question"
+    t.string "tag"
+  end
+
+  create_table "question_tags", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+=======
+  create_table "question_tags", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "tag_id"
+    t.index ["question_id"], name: "index_question_tags_on_question_id"
+    t.index ["tag_id"], name: "index_question_tags_on_tag_id"
+>>>>>>> branch_job
+  end
 
   create_table "questions", force: :cascade do |t|
     t.string "text"
@@ -25,6 +47,10 @@ ActiveRecord::Schema.define(version: 2021_11_24_101939) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "hashtag"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -34,7 +60,7 @@ ActiveRecord::Schema.define(version: 2021_11_24_101939) do
     t.string "password_hash"
     t.string "password_salt"
     t.string "avatar_url"
-    t.integer "color"
+    t.string "color"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
