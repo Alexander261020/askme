@@ -40,10 +40,13 @@ class QuestionsController < ApplicationController
   def set_tags(tags)
     tags.each do |tag|
       unless Tag.exists?(hashtag: tag)
-        @teg_new = Tag.new(hashtag: tag)
-        if @teg_new.save
-          QuestionsTag.create(question: @question, tag: @teg_new)
-        end
+        @tag = Tag.create(hashtag: tag)
+      else
+        @tag = Tag.where(hashtag: tag)
+      end
+
+      unless QuestionsTag.exists?(question: @question, tag: @tag)
+        QuestionsTag.create(question: @question, tag: @tag)
       end
     end
   end
