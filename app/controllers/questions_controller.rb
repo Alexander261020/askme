@@ -5,11 +5,10 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.author = current_user
-    # получаем теги при создании вопроса и записываем их
 
     if @question.save
-      tegs = hashtags_question(question_params)
-      set_tags(tegs)
+      tags = hashtags_question(question_params)
+      set_tags(tags)
 
       # После сохранения вопроса редиректим на пользователя
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
@@ -40,16 +39,17 @@ class QuestionsController < ApplicationController
   def set_tags(tags)
     tags.each do |tag|
       unless Tag.exists?(hashtag: tag)
-        @teg_new = Tag.new(hashtag: tag)
-        if @teg_new.save
-          QuestionsTag.create(question: @question, tag: @teg_new)
-        end
+        @tag = Tag.create(hashtag: tag)
+      else
+        @tag = Tag.where(hashtag: tag)
+      end
+
+      unless QuestionsTag.exists?(tag: @tag, question: @question)
+        # @question.tags.
+        @question.questions_tags.create(tag: @tag)
+        # QuestionsTag.create(tag: @tag, question: @question)
       end
     end
-  end
-
-  def get_tegs
-    Tag.all
   end
 
   # метод нужен для получения и удаления хештегов при создании/редактировании вопросов и ответов

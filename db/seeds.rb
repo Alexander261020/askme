@@ -3,6 +3,8 @@
 
 Question.destroy_all
 User.destroy_all
+Tag.destroy_all
+QuestionsTag.destroy_all
 User.create(username: 'user1', email: 'u1@mail.ru', password: '123', id: 1001, color: 'black')
 User.create(username: 'user2', email: 'u2@mail.ru', password: '123', id: 1002, color: 'purple')
 User.create(username: 'user3', email: 'u3@mail.ru', password: '123', id: 1003)

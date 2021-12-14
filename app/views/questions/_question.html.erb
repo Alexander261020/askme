@@ -30,7 +30,7 @@
       <div class="question-date">
         хештеги вопроса/ответа:
         <% question.tags.each do |tag| %>
-          <%= link_to tag[:hashtag], tag_path(tag[:hashtag]) %> |
+          <%= link_to tag[:hashtag], tag_path(tag) %> |
         <% end %>
       </div>
     <% end %>
