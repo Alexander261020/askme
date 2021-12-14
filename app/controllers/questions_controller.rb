@@ -44,10 +44,8 @@ class QuestionsController < ApplicationController
         @tag = Tag.where(hashtag: tag)
       end
 
-      unless QuestionsTag.exists?(tag: @tag, question: @question)
-        # @question.tags.
-        @question.questions_tags.create(tag: @tag)
-        # QuestionsTag.create(tag: @tag, question: @question)
+      unless QuestionTag.exists?(question: @question, tag: @tag)
+        QuestionTag.create(question: @question, tag: @tag)
       end
     end
   end

@@ -1,6 +1,6 @@
 class Tag < ApplicationRecord
-  has_many :QuestionTag
-  has_many :questions, through: :QuestionTag
+  has_many :question_tags
+  has_many :questions, through: :question_tags
 
   validates :hashtag, presence: true
   validates :hashtag, length: { maximum: 128 }
