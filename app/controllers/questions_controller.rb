@@ -6,7 +6,9 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.author = current_user
 
-    if @question.save
+    # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
+    # она будет добавлена в массив @question.errors.
+    if check_captcha(@question) && @question.save
       tags = hashtags_question(question_params)
       set_tags(tags)
 
@@ -35,6 +37,9 @@ class QuestionsController < ApplicationController
   end
 
   private
+  def check_captcha(model)
+    current_user.present? || verify_recaptcha(model: model)
+  end
 
   def set_tags(hashtags)
     hashtags.each do |hashtag|
