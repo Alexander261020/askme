@@ -9,8 +9,8 @@ class QuestionsController < ApplicationController
     # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
     # она будет добавлена в массив @question.errors.
     if check_captcha(@question) && @question.save
-      tags = hashtags_question(question_params)
-      set_tags(tags)
+      tags = Hashtag.hashtags_question(question_params)
+      Hashtag.set_tags(tags, @question)
 
       # После сохранения вопроса редиректим на пользователя
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(question_params)
       tags = hashtags_question(question_params)
-      set_tags(tags)
+      set_tags(tags, @question)
 
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
@@ -37,29 +37,10 @@ class QuestionsController < ApplicationController
   end
 
   private
+
   def check_captcha(model)
     current_user.present? || verify_recaptcha(model: model)
   end
-
-  def set_tags(hashtags)
-    hashtags.each do |hashtag|
-      tag = Tag.find_or_create_by(hashtag: hashtag)
-      QuestionTag.find_or_create_by(question: @question, tag: tag)
-    end
-  end
-
-  # метод нужен для получения и удаления хештегов при создании/редактировании вопросов и ответов
-  def hashtags_question(question_params)
-    heshtags = []
-    heshtags += search_tags(question_params[:text]) if question_params[:text]
-    heshtags += search_tags(question_params[:answer]) if question_params[:answer]
-    heshtags.uniq
-  end
-
-  def search_tags(string)
-    string.downcase.scan(/#[а-яa-z\w\-]+/i)
-  end 
-
 
   def load_question
     @question = Question.find(params[:id])
