@@ -1,6 +1,4 @@
 module Hashtag
-  REGEXP_TAGS = /#[а-яa-z\w\-]+/i
-
   def self.set_tags(hashtags, question)
     hashtags.each do |hashtag|
       tag = Tag.find_or_create_by(hashtag: hashtag)
@@ -15,7 +13,7 @@ module Hashtag
   private
 
   def self.search_tags(string)
-    normalize_string(string.to_s.downcase).scan(REGEXP_TAGS)
+    normalize_string(string.to_s.downcase).split
   end
 
   # преобразовываем "ё" -> "е", "й" -> "и"
