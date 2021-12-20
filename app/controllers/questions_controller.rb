@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
     # она будет добавлена в массив @question.errors.
     if check_captcha(@question) && @question.save
-      tags = Hashtag.hashtags_question(question_params)
+      tags = Hashtag.tags_question(@question)
       Hashtag.set_tags(tags, @question)
 
       # После сохранения вопроса редиректим на пользователя
@@ -21,8 +21,8 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      tags = hashtags_question(question_params)
-      set_tags(tags, @question)
+      tags = Hashtag.tags_question(@question)
+      Hashtag.set_tags(tags, @question)
 
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
