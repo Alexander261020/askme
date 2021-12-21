@@ -3,16 +3,9 @@ class QuestionsController < ApplicationController
   before_action :authorize_user, except: [:create, :tag]
 
   def create
-    @question = Question.new(question_params)
-    @question.author = current_user
+    @question = question_save(question_params, current_user)
 
-    # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
-    # она будет добавлена в массив @question.errors.
-    if check_captcha(@question) && @question.save
-      tags = Hashtag.tags_question(@question)
-      Hashtag.set_tags(tags, @question)
-
-      # После сохранения вопроса редиректим на пользователя
+    if @question.persisted?
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
@@ -21,8 +14,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      tags = Hashtag.tags_question(@question)
-      Hashtag.set_tags(tags, @question)
+      Hashtag.set_tags(@question)
 
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
@@ -55,6 +47,18 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:user_id, :text, :answer)
     else
       params.require(:question).permit(:user_id, :text)
+    end
+  end
+
+  def question_save(params, current_user)
+    @question = Question.new(params)
+    @question.author = current_user
+
+    # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
+    # она будет добавлена в массив @question.errors.
+    if check_captcha(@question) && @question.save
+      Hashtag.set_tags(@question)
+      @question
     end
   end
 end

@@ -1,5 +1,5 @@
 class Tag < ApplicationRecord
-  REGEXP_TAGS = /#[а-яa-z\w\-]+/i
+  REGEXP_TAGS = /#[[:word:]-]+/
 
   has_many :question_tags
   has_many :questions, through: :question_tags
