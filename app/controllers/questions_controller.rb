@@ -3,6 +3,17 @@ class QuestionsController < ApplicationController
   before_action :authorize_user, except: [:create, :tag]
 
   def create
+    @question = QuestionSave.(params: question_params, current_user: current_user)
+  
+    if @question.persisted?
+      redirect_to user_path(@question.user), notice: 'Вопрос задан'
+    else
+      render :edit
+    end
+  end
+  
+=begin
+  def create
     @question = question_save(question_params, current_user)
 
     if @question.persisted?
@@ -10,7 +21,8 @@ class QuestionsController < ApplicationController
     else
       render :edit
     end
-  end
+  end 
+=end
 
   def update
     if @question.update(question_params)
