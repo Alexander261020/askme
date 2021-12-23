@@ -3,9 +3,9 @@ class QuestionsController < ApplicationController
   before_action :authorize_user, except: [:create, :tag]
 
   def create
-    @question = QuestionSave.(question_params, current_user)
-    
-    if @question.persisted? 
+    @question = QuestionSave.(question_params, current_user, verify_recaptcha)
+
+    if @question.persisted?
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
@@ -29,10 +29,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-
-  def check_captcha
-    current_user.present? || verify_recaptcha
-  end
 
   def load_question
     @question = Question.find(params[:id])
