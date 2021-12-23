@@ -6,10 +6,7 @@ class QuestionSave < ApplicationController
 
     # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
     # она будет добавлена в массив @question.errors.
-    # if check_captcha(@question) && @question.save
-    if (current_user.present? || captcha) && @question.save
-      Hashtag.set_tags(@question)
-    end
+    Hashtag.set_tags(@question) if captcha && @question.save
 
     @question
   end
