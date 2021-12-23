@@ -3,26 +3,14 @@ class QuestionsController < ApplicationController
   before_action :authorize_user, except: [:create, :tag]
 
   def create
-    @question = QuestionSave.(params: question_params, current_user: current_user)
-  
-    if @question.persisted?
-      redirect_to user_path(@question.user), notice: 'Вопрос задан'
-    else
-      render :edit
-    end
-  end
-  
-=begin
-  def create
-    @question = question_save(question_params, current_user)
+    @question = QuestionSave.(question_params, current_user, verify_recaptcha)
 
     if @question.persisted?
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
     end
-  end 
-=end
+  end
 
   def update
     if @question.update(question_params)
@@ -42,10 +30,6 @@ class QuestionsController < ApplicationController
 
   private
 
-  def check_captcha(model)
-    current_user.present? || verify_recaptcha(model: model)
-  end
-
   def load_question
     @question = Question.find(params[:id])
   end
@@ -59,18 +43,6 @@ class QuestionsController < ApplicationController
       params.require(:question).permit(:user_id, :text, :answer)
     else
       params.require(:question).permit(:user_id, :text)
-    end
-  end
-
-  def question_save(params, current_user)
-    @question = Question.new(params)
-    @question.author = current_user
-
-    # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
-    # она будет добавлена в массив @question.errors.
-    if check_captcha(@question) && @question.save
-      Hashtag.set_tags(@question)
-      @question
     end
   end
 end
