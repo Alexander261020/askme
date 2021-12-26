@@ -30,10 +30,6 @@ class QuestionsController < ApplicationController
 
   private
 
-  def check_captcha
-    current_user.present? || verify_recaptcha
-  end
-
   def load_question
     @question = Question.find(params[:id])
   end
