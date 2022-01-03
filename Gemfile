@@ -12,7 +12,6 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'uglifier'
 gem 'rails_12factor'
 gem 'recaptcha', require: 'recaptcha/rails'
-# gem 'where_exists'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
