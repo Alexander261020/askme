@@ -13,9 +13,9 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      Hashtag.set_tags(@question)
+    question = QuestionUpdate.(@question, question_params)
 
+    if question.persisted?
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
       render :edit
@@ -42,7 +42,7 @@ class QuestionsController < ApplicationController
     if current_user.present? && params[:question][:user_id].to_i == current_user.id
       params.require(:question).permit(:user_id, :text, :answer)
     else
-      params.require(:question).permit(:user_id, :text)
+      params.require(:question).permit(:user_id, :text, :answer)
     end
   end
 end
