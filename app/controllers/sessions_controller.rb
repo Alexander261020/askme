@@ -1,7 +1,4 @@
 class SessionsController < ApplicationController
-  def new
-  end
-
   def create
     # используем метод authenticate, который мы уже писали
     # Передаём ему параметры email и password

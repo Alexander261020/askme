@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   ITERATIONS = 20_000
   DIGEST = OpenSSL::Digest::SHA256.new
+  REGEXP_COLOR = /#[a-f0-9]{6}/i
 
   attr_accessor :password
 
@@ -8,7 +9,7 @@ class User < ApplicationRecord
   validates :username, format: { with: /\A\w+\z/ }
   validates :username, length: { maximum: 40 }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :color, format: { with: /\A[#a-zA-Z0-9]{4,7}\z/ }, unless: -> { color.nil? }
+  validates :color, format: { with: REGEXP_COLOR }, allow_nil: true
   # валидация будет проходить только при создании нового юзера
   validates :password, presence: true, on: :create
   # и поле подтверждения пароля

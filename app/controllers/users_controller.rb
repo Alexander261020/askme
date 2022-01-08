@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     redirect_to root_path, alert: 'Вы уже залогинены' if current_user.present?
     @user = User.new(user_params)
 
-    if @user.save
+    if @user.save && check_captcha
       # Если удачно, отправляем пользователя на главную с помощью метода redirect_to
       # с сообщением
       session[:user_id] = @user.id

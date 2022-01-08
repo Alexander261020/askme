@@ -10,31 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_12_14_100057) do
-=======
 ActiveRecord::Schema.define(version: 2021_12_14_103537) do
->>>>>>> branch_job
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
-  create_table "question_tag", force: :cascade do |t|
-    t.string "question"
-    t.string "tag"
-  end
-
-  create_table "question_tags", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-=======
   create_table "question_tags", force: :cascade do |t|
     t.bigint "question_id"
     t.bigint "tag_id"
     t.index ["question_id"], name: "index_question_tags_on_question_id"
     t.index ["tag_id"], name: "index_question_tags_on_tag_id"
->>>>>>> branch_job
   end
 
   create_table "questions", force: :cascade do |t|

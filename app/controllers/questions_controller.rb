@@ -3,14 +3,9 @@ class QuestionsController < ApplicationController
   before_action :authorize_user, except: [:create, :tag]
 
   def create
-    @question = Question.new(question_params)
-    @question.author = current_user
+    @question = QuestionSave.(question_params, current_user, check_captcha)
 
-    if @question.save
-      tags = hashtags_question(question_params)
-      set_tags(tags)
-
-      # После сохранения вопроса редиректим на пользователя
+    if @question.persisted?
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
@@ -18,10 +13,9 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      tags = hashtags_question(question_params)
-      set_tags(tags)
+    question = QuestionUpdate.(@question, question_params)
 
+    if question.persisted?
       redirect_to user_path(@question.user), notice: 'Вопрос был сохранен'
     else
       render :edit
@@ -36,26 +30,6 @@ class QuestionsController < ApplicationController
 
   private
 
-  def set_tags(hashtags)
-    hashtags.each do |hashtag|
-      tag = Tag.find_or_create_by(hashtag: hashtag)
-      QuestionTag.find_or_create_by(question: @question, tag: tag)
-    end
-  end
-
-  # метод нужен для получения и удаления хештегов при создании/редактировании вопросов и ответов
-  def hashtags_question(question_params)
-    heshtags = []
-    heshtags += search_tags(question_params[:text]) if question_params[:text]
-    heshtags += search_tags(question_params[:answer]) if question_params[:answer]
-    heshtags.uniq
-  end
-
-  def search_tags(string)
-    string.downcase.scan(/#[а-яa-z\w\-]+/i)
-  end 
-
-
   def load_question
     @question = Question.find(params[:id])
   end
@@ -68,7 +42,7 @@ class QuestionsController < ApplicationController
     if current_user.present? && params[:question][:user_id].to_i == current_user.id
       params.require(:question).permit(:user_id, :text, :answer)
     else
-      params.require(:question).permit(:user_id, :text)
+      params.require(:question).permit(:user_id, :text, :answer)
     end
   end
 end
