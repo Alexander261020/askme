@@ -1,6 +1,6 @@
-class QuestionSave < ApplicationController
+class QuestionSave
   def self.call(params, current_user, captcha)
-    new_hastags = Hashtag.search_hashtags(params[:text])
+    new_hastags = HashtagSet.search(params[:text])
 
     params[:text].delete!('#')
 
@@ -9,7 +9,7 @@ class QuestionSave < ApplicationController
 
     # Проверяем капчу вместе с сохранением вопроса. Если в капче ошибка,
     # она будет добавлена в массив @question.errors
-    question.tags = Hashtag.set(new_hastags) if captcha && question.save
+    question.tags = HashtagSet.(new_hastags) if captcha && question.save
 
     question
   end
