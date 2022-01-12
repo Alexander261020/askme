@@ -5,5 +5,6 @@ class Tag < ApplicationRecord
   has_many :questions, through: :question_tags
 
   validates :hashtag, presence: true
+  validates :hashtag, uniqueness: true
   validates :hashtag, length: { maximum: 128 }
 end
