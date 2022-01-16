@@ -13,10 +13,14 @@
     <% end %>
   </div>
 
-  <div class="text-left border-top border-dark" >
-  Все теги мира <%= @tags.all.count %>:
-  <% @tags.each do |tag| %>
+  <% if @tags.present? %>
+    <div class="text-left border-top border-dark" >
+      Все теги мира <%= @tags.count %>:
+      <% @tags.each do |tag| %>
 
-    <%= link_to tag[:hashtag], tag_path(tag) %> |
+        <%= link_to tag[:text], tag_path(tag[:text]) %>
+        <%= "|" unless @tags.last == tag %>
+
+      <% end %>
+    </div>
   <% end %>
-</div>

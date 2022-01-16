@@ -1,6 +1,10 @@
 class TagsController < ApplicationController
   def show
-    @tag = Tag.find(params[:id])
-    @questions = @tag.questions
+    if Tag.exists?(text: params[:id])
+      @tag = Tag.where(text: params[:id]).first
+      @questions = @tag.questions
+    else
+      redirect_to root_path, notice: "Хештег #{params[:id]} не обнаружен!"
+    end
   end
 end
