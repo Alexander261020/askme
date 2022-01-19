@@ -62,7 +62,11 @@ class UsersController < ApplicationController
   end
 
   def load_user
-    @user ||= User.find params[:id]
+    if @user.nil? && User.exists?(params[:id])
+      @user = User.find params[:id]
+    else
+      render_404
+    end
   end
 
   def user_params

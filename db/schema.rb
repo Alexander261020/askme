@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_16_060108) do
+ActiveRecord::Schema.define(version: 2022_01_19_071204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,8 @@ ActiveRecord::Schema.define(version: 2022_01_16_060108) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "text"
+    t.string "text", null: false
+    t.index ["text"], name: "index_tags_on_text", unique: true
   end
 
   create_table "users", force: :cascade do |t|
