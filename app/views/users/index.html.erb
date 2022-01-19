@@ -16,11 +16,9 @@
   <% if @tags.present? %>
     <div class="text-left border-top border-dark" >
       Все теги мира <%= @tags.count %>:
-      <% @tags.each do |tag| %>
-
+      <% @tags.each_with_index do |tag, index| %>
+        <%= "|" unless index == 0 %>
         <%= link_to tag[:text], tag_path(tag[:text]) %>
-        <%= "|" unless @tags.last == tag %>
-
       <% end %>
     </div>
   <% end %>

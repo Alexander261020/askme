@@ -29,9 +29,9 @@
     <% if question.tags.present? %>
       <div class="question-date">
         хештеги вопроса/ответа:
-        <% question.tags.each do |tag| %>
+        <% question.tags.each_with_index do |tag, index| %>
+          <%= "|" unless index == 0 %>
           <%= link_to tag[:text], tag_path(tag[:text]) %>
-          <%= "|" unless question.tags.last == tag %>
         <% end %>
       </div>
     <% end %>
