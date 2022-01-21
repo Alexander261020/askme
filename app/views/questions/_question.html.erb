@@ -29,15 +29,12 @@
     <% if question.tags.present? %>
       <div class="question-date">
         хештеги вопроса/ответа:
-        <% question.tags.each_with_index do |tag, index| %>
-          <%= "|" unless index == 0 %>
-          <%= link_to tag[:text], tag_path(tag[:text]) %>
-        <% end %>
+        <%= sanitize tags_string(question.tags) %>
       </div>
     <% end %>
   </div>
 
-  <% if question.user == current_user && @tag.nil? %>
+  <% if question.user == current_user %>
     <div class="question-actions">
       <%= link_to fa_icon(action_icon), edit_question_path(question) %>
       <%= link_to fa_icon('trash-o'), question_path(question),

@@ -16,9 +16,6 @@
   <% if @tags.present? %>
     <div class="text-left border-top border-dark" >
       Все теги мира <%= @tags.count %>:
-      <% @tags.each_with_index do |tag, index| %>
-        <%= "|" unless index == 0 %>
-        <%= link_to tag[:text], tag_path(tag[:text]) %>
-      <% end %>
+      <%= sanitize tags_string(@tags) %>
     </div>
   <% end %>

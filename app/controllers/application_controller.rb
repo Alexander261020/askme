@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user
+  helper_method :current_user, :tags_string
 
   private
 
-  def render404
-    render file: "#{Rails.root}/public/404.html", layout: false, status: :not_found
+  def tags_string(tags)
+    tags.map do |tag|
+      "<a href='#{tag_path(tag[:text])}'>#{tag[:text]}</a>"
+    end.join(" | ")
   end
 
   def check_captcha
