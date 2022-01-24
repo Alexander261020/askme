@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   def show
-    @tag = Tag.includes(:questions).find_by_text! params[:text]
-    @questions = @tag.questions.includes(:author)
+    @tag = Tag.find_by!(text: params[:text])
+    @questions = @tag.questions.includes(:author, :user, :tags)
   end
 end

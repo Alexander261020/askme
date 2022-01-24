@@ -1,4 +1,10 @@
 module ApplicationHelper
+  def tags_string(tags)
+    tags.map do |tag|
+      link_to tag[:text], tag_path(tag[:text])
+    end.join(" | ")
+  end
+
   # Этот метод возвращает ссылку на аватарку пользователя, если она у него есть.
   # Или ссылку на дефолтную аватарку
   def user_avatar(user)

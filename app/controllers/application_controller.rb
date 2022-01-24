@@ -1,13 +1,7 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :tags_string
+  helper_method :current_user
 
   private
-
-  def tags_string(tags)
-    tags.map do |tag|
-      "<a href='#{tag_path(tag[:text])}'>#{tag[:text]}</a>"
-    end.join(" | ")
-  end
 
   def check_captcha
     current_user.present? || verify_recaptcha
