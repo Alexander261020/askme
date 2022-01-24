@@ -9,3 +9,5 @@
 
 ## ReCaptcha
 При регистрации, или создания вопроса анонимным пользователям необходимо пройти проверку reCaptcha.
+
+[ссылка на heroku](https://mymegaask.herokuapp.com/)
