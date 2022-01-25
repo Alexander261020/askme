@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @tags = Tag.all.map { |tag| tag unless tag.questions.size == 0 }.compact
+    @tags = Tag.joins(:questions)
   end
 
   def new
