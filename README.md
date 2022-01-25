@@ -1,24 +1,13 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Спроси меня
 
-Things you may want to cover:
+## О проекте
+Любой может задать вопрос, любому зарегистрированному пользователю и получить на него ответ.
 
-* Ruby version
+## Хештеги
+В программе реализован функционал хештегов. Для добавления хештега перед нужным словом нужно добавить ```#```, после чего сохранить или редактировать вопрос/ответ. По хештегам можно отследить заданные вопросы, через главную страницу.
 
-* System dependencies
+## ReCaptcha
+При регистрации, или создания вопроса анонимным пользователям необходимо пройти проверку reCaptcha.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[ссылка на heroku](https://mymegaask.herokuapp.com/)
