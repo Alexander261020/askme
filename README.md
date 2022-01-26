@@ -10,4 +10,7 @@
 ## ReCaptcha
 При регистрации, или создания вопроса анонимным пользователям необходимо пройти проверку reCaptcha.
 
+## Запуск приложения
+Для запуска приложения необходимо иметь ```ruby '3.0.0'``` или установить [install ruby](https://www.ruby-lang.org/ru/documentation/installation/), далее из консоли вызвать команду ```bundle exec``` для установки гемов. Создать базу данных ```rails db:create```, и "прогнать" миграции ```rake db:migrate```. Запуск сервера ```rails s```.
+
 [ссылка на heroku](https://mymegaask.herokuapp.com/)
