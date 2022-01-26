@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @tags = Tag.joins(:questions)
+    @tags = Tag.load_questions
   end
 
   def new
