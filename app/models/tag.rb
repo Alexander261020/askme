@@ -7,5 +7,5 @@ class Tag < ApplicationRecord
   validates :text, presence: true
   validates :text, length: { maximum: 128 }
 
-  scope :load_questions, -> { joins(:questions).distinct }
+  scope :with_questions, -> { joins(:questions).distinct }
 end
